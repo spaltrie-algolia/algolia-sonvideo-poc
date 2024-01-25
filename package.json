@@ -1,0 +1,38 @@
+{
+  "name": "@algolia/son-video-custom-demo",
+  "description": "Son Vidéo Custom Demo",
+  "source": "src/index.html",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "clean": "rm -rf dist .parcel-cache",
+    "copy-img": "cp -vR ./src/img ./dist",
+    "build": "parcel build && cp -vR ./src/img ./dist",
+    "start": "parcel"
+  },
+  "dependencies": {
+    "@algolia/autocomplete-core": "1.14.0",
+    "@algolia/autocomplete-js": "1.14.0",
+    "@algolia/autocomplete-plugin-query-suggestions": "1.14.0",
+    "@algolia/autocomplete-plugin-recent-searches": "1.14.0",
+    "@algolia/autocomplete-shared": "1.14.0",
+    "@algolia/autocomplete-theme-classic": "1.14.0",
+    "@algolia/client-search": "4.16.0",
+    "algoliasearch": "^4.16.0",
+    "blurhash": "^1.1.5",
+    "dequal": "^2.0.3",
+    "instantsearch.js": "^4.64.0",
+    "preact": "10.13.2",
+    "ramda": "^0.28.0",
+    "typescript": "^4.6.2"
+  },
+  "devDependencies": {
+    "parcel": "2.8.3"
+  },
+  "keywords": [
+    "algolia",
+    "autocomplete",
+    "typescript"
+  ]
+}

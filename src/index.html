@@ -1,0 +1,80 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0" />
+
+  <link rel="shortcut icon"
+        href="favicon.png"
+        type="image/x-icon" />
+  <link rel="stylesheet"
+        href="style.css" />
+
+  <link rel="stylesheet"
+        href="https://unpkg.com/instantsearch.css@7/themes/satellite-min.css" />
+  <title>InstantSearch | Autocomplete</title>
+
+</head>
+
+<body>
+  <noscript> You need to enable JavaScript to run this app. </noscript>
+
+
+
+  <header class="header">
+    <div class="container-autocomplete">
+      <div class="row">
+        <div class="column"></div>
+        <div class="column">
+          <img class="brand-class"
+               style="background-color: black; margin-bottom: 0.25em;"
+               src="https://image.son-video.com/images/ui/icons-svg/v5/logo-fr.svg" />
+        </div>
+        <div class="column">
+          <div class="ais-MenuSelect ais-perso-dropdown">
+            <select id="perso-segment"
+                    class="ais-MenuSelect-select">
+              <option class="ais-MenuSelect-option"
+                      value="segment-none"
+                      selected="selected">No Perso</option>
+              <option class="ais-MenuSelect-option"
+                      value="segment-a">Perso: Man</option>
+              <option class="ais-MenuSelect-option"
+                      value="segment-b">Perso: Woman</option>
+            </select>
+          </div>
+        </div>
+
+      </div>
+      <div id="autocomplete"></div>
+      <div id="current-refinements"
+           class="current-refinements-class">
+      </div>
+    </div>
+  </header>
+  </div>
+  <div class="container wrapper">
+    <div>
+      <div>
+        <div id="categories"></div>
+      </div>
+      <div id="dynamic-widgets"></div>
+    </div>
+    <div>
+      <!-- <img src="iphone-banner.png"
+           alt="iPhone banner"
+           class="banner" /> -->
+
+      <div id="hits"></div>
+      <div id="pagination"></div>
+    </div>
+  </div>
+
+
+
+  <script type="module"
+          src="app.tsx"></script>
+</body>
+
+</html>
