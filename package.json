@@ -8,7 +8,7 @@
   "scripts": {
     "clean": "rm -rf dist .parcel-cache",
     "copy-img": "cp -vR ./src/img ./dist",
-    "build": "parcel build && cp -vR ./src/img ./dist",
+    "build": "parcel build",
     "start": "parcel"
   },
   "dependencies": {
