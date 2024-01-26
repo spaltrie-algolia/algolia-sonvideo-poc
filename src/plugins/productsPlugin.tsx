@@ -142,15 +142,15 @@ export function ProductItem({ hit, components }: ProductItemProps) {
               </div>
             </div>
             <div className="aa-ItemContentRating">
-              {/* <ul>
-                {hit.reviewCountCrawl > 0 && Array(5)
+              <ul>
+                {hit.scoreReviews > 0 && Array(5)
                   .fill(null)
                   .map((_, index) => (
                     <li key={index}>
                       <div
                         className={cx(
                           'aa-ItemIcon aa-ItemIcon--noBorder aa-StarIcon',
-                          index >= hit.reviewScoreBucket && 'aa-StarIcon--muted'
+                          index >= hit.scoreStars && 'aa-StarIcon--muted'
                         )}
                       >
                         <StarIcon />
@@ -159,8 +159,8 @@ export function ProductItem({ hit, components }: ProductItemProps) {
                   ))}
               </ul>
               <span className="aa-ItemContentRatingReviews">
-                {hit.reviewCountCrawl > 0 && (hit.reviewCountCrawl)}
-              </span> */}
+                {hit.scoreReviews > 0 && (hit.scoreReviews)}
+              </span>
             </div>
           </div>
         </div>

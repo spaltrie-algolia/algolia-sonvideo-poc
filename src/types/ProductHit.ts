@@ -6,8 +6,8 @@ type ProductRecord = {
   image_url: string;
   additional_image_link: string[];
   price: number;
-  //  reviewScoreBucket: number;
-  //  reviewCountCrawl: number;
+  scoreStars: number;
+  scoreReviews: number;
 };
 
 export type ProductHit = Hit<ProductRecord>;

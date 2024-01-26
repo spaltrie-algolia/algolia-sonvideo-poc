@@ -97,7 +97,8 @@ body {
 }
 
 .aa-ItemPicture {
-  width: 100%;
+  /* max-width: 15em;
+  max-height: 10em; */
   border-radius: calc(var(--aa-spacing-half) / 2);
   overflow: hidden;
 }
@@ -106,6 +107,8 @@ body {
   object-fit: cover;
   width: 100%;
   height: auto;
+  max-width: 15em;
+  max-height: 10em;
   transition: transform 1.8s ease-out, opacity 0.2s ease-out;
   transform-origin: center;
   position: relative;

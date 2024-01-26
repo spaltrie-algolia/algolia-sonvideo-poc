@@ -20,6 +20,7 @@ import '@algolia/autocomplete-theme-classic';
 
 import instantsearch from 'instantsearch.js';
 import historyRouter from 'instantsearch.js/es/lib/routers/history';
+import { simple } from 'instantsearch.js/es/lib/stateMappings';
 import { connectSearchBox } from 'instantsearch.js/es/connectors';
 import { hierarchicalMenu, hits, pagination, refinementList, rangeSlider, configure, panel, currentRefinements, dynamicWidgets } from 'instantsearch.js/es/widgets';
 import { searchClient } from './searchClient';
@@ -57,7 +58,10 @@ const instantSearchRouter = historyRouter();
 const search = instantsearch({
   searchClient,
   indexName: ALGOLIA_PRODUCTS_INDEX_NAME,
-  routing: instantSearchRouter,
+  //routing: { stateMapping: instantSearchRouter },
+  routing: {
+    stateMapping: simple(),
+  },
 });
 
 // Mount a virtual search box to manipulate InstantSearch's `query` UI
@@ -97,7 +101,13 @@ search.addWidgets([
     container: '#dynamic-widgets',
     widgets: [
       container =>
-        brandRefinementList({ container, attribute: 'brand' }),
+        brandRefinementList({
+          container,
+          attribute: 'brand',
+          searchable: true,
+          showMore: true,
+          sortBy: ['isRefined', 'count:desc']
+        }),
       container =>
         priceRangeSlider({
           container,
@@ -152,7 +162,7 @@ search.start();
 export function setInstantSearchUiState(indexUiState) {
 
   search.setUiState(uiState => {
-
+    console.log("setUiState: ", new Date());
     if (uiState && uiState[ALGOLIA_PRODUCTS_INDEX_NAME]) {
       search.helper?.state.ruleContexts = []; // reset rule contexts => bug?
       var e = document.getElementById("perso-segment");
@@ -387,6 +397,7 @@ const { setQuery } = autocomplete({
 // and updates its query accordingly
 window.addEventListener('popstate', () => {
   skipInstantSearchUiStateUpdate = true;
+  console.log('addEventListener / popstate')
   setQuery(search.helper?.state.query || '');
   //  console.log('setQuery');
 });
