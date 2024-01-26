@@ -98,7 +98,7 @@ function ArticleItem({ hit }: ArticleItemProps) {
           <div className="aa-ItemContentTitle">{hit.title}</div>
           <div className="aa-ItemContentDate">
             Published on{' '}
-            {new Date(hit.blogPostDate).toLocaleDateString('en-US', {
+            {new Date(hit.createdAt).toLocaleDateString('en-GB', {
               month: 'long',
               year: 'numeric',
             })}

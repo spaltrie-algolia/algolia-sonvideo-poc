@@ -106,8 +106,8 @@ export function ProductItem({ hit, components }: ProductItemProps) {
 
   return (
     <a
-      href={hit.image_url}
-      // target="_blank"
+      href={hit.urlCrawl ? hit.urlCrawl : hit.link}
+      target="_blank"
       rel="noreferrer noopener"
       className="aa-ItemLink aa-ProductItem"
     >
