@@ -14,6 +14,11 @@
   <link rel="stylesheet"
         href="https://unpkg.com/instantsearch.css@7/themes/satellite-min.css" />
   <title>InstantSearch | Autocomplete</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer" />
 
 </head>
 
@@ -25,7 +30,21 @@
   <header class="header">
     <div class="container-autocomplete">
       <div class="row">
-        <div class="column"></div>
+        <div class="column ">
+          <div style="width: 20px;"
+               class="tooltip">
+            <i class="fa-regular fa-bookmark fa-lg "
+               style="margin-top: 1em">
+            </i>
+            <span class="tooltipText">
+              Rules & Synonyms:<br />
+              - Banner &ensp;&ensp;&ensp;&ensp;&ensp;&ensp; => <b>TV LG</b> <br />
+              - Auto filter cat. => <b>TV</b> <br />
+              - Redirect &ensp;&ensp;&ensp;&ensp;&ensp; => <b>soldes</b> <br />
+              - Synonym &ensp;&ensp;&ensp;&ensp; => <b>TV <=> Télé <=> Télévision</b> <br />
+            </span>
+          </div>
+        </div>
         <div class="column">
           <img class="brand-class"
                style="background-color: black; margin-bottom: 0.25em;"
