@@ -1,6 +1,7 @@
 /** @jsxRuntime classic */
 /** @jsx h */
 import { autocomplete } from '@algolia/autocomplete-js';
+import { createRedirectUrlPlugin } from '@algolia/autocomplete-plugin-redirect-url';
 import { h, render } from 'preact';
 import { pipe } from 'ramda';
 
@@ -14,6 +15,7 @@ import { productsPlugin } from './plugins/productsPlugin';
 import { querySuggestionsPlugin } from './plugins/querySuggestionsPlugin';
 // import { quickAccessPlugin } from './plugins/quickAccessPlugin';
 import { recentSearchesPlugin } from './plugins/recentSearchesPlugin';
+
 import { cx, hasSourceActiveItem, isDetached } from './utils';
 
 import '@algolia/autocomplete-theme-classic';
@@ -22,7 +24,7 @@ import instantsearch from 'instantsearch.js';
 import historyRouter from 'instantsearch.js/es/lib/routers/history';
 import { simple } from 'instantsearch.js/es/lib/stateMappings';
 import { connectSearchBox } from 'instantsearch.js/es/connectors';
-import { hierarchicalMenu, hits, pagination, refinementList, rangeSlider, configure, panel, currentRefinements, dynamicWidgets } from 'instantsearch.js/es/widgets';
+import { queryRuleCustomData, hierarchicalMenu, hits, pagination, refinementList, rangeSlider, configure, panel, currentRefinements, dynamicWidgets } from 'instantsearch.js/es/widgets';
 import { searchClient } from './searchClient';
 import { ALGOLIA_PRODUCTS_INDEX_NAME } from './constants';
 import { ProductItem } from './plugins/productsPlugin';
@@ -62,11 +64,13 @@ const search = instantsearch({
   routing: {
     stateMapping: simple(),
   },
+  //routing: true,
 });
 
 // Mount a virtual search box to manipulate InstantSearch's `query` UI
 // state parameter.
 const virtualSearchBox = connectSearchBox(() => { });
+
 
 const categoriesHierarchicalMenu = panel({
   templates: {
@@ -151,6 +155,32 @@ search.addWidgets([
     container: '#categories',
     attributes: ['productTypes.lvl0', 'productTypes.lvl1', 'productTypes.lvl2'],
   }),
+  queryRuleCustomData({
+    container: '#queryRuleCustomData',
+    templates: {
+      default({ items }, { html }) {
+        return html`
+          ${items.map(item => {
+          const { title, banner, link } = item;
+
+          if (!banner) {
+            return;
+          }
+
+          return `
+              <div style='margin: auto; width: 50%'>
+                <h3 style='text-align: center; margin:0'>${title}</h3>
+                <a href="${link}" target="_blank">
+                  <img src="${banner}" alt="${title}">
+                </a>
+              </div>
+            `;
+        }).join('')}
+        `;
+      },
+    }
+  })
+
 ]);
 
 
@@ -203,6 +233,7 @@ const searchPageState = getInstantSearchUiState();
 
 let skipInstantSearchUiStateUpdate = false;
 
+const redirectUrlPlugin = createRedirectUrlPlugin();
 
 const { setQuery } = autocomplete({
   container: '#autocomplete',
@@ -248,6 +279,7 @@ const { setQuery } = autocomplete({
     popularPlugin,
     //quickAccessPlugin,
     popularCategoriesPlugin,
+    redirectUrlPlugin,
   ],
   reshape({ sourcesBySourceId, sources, state }) {
     const {
@@ -257,6 +289,7 @@ const { setQuery } = autocomplete({
       brandsPlugin: brands,
       popularPlugin: popular,
       popularCategoriesPlugin: popularCategories,
+      redirectUrlPlugin: redirectUrl,
       ...rest
     } = sourcesBySourceId;
 
@@ -269,7 +302,7 @@ const { setQuery } = autocomplete({
     });
 
     return [
-      combine(recentSearches, querySuggestions, categories, brands),
+      combine(recentSearches, querySuggestions, categories, brands, redirectUrl),
       [
         !state.query && popular,
         ...Object.values(rest),
@@ -288,6 +321,7 @@ const { setQuery } = autocomplete({
       popularPlugin: popular,
       quickAccessPlugin: quickAccess,
       popularCategoriesPlugin: popularCategories,
+      redirectUrlPlugin: redirectUrl,
     } = elements;
 
     const sourceIdsToExclude = ['popularPlugin', 'popularCategoriesPlugin'];
